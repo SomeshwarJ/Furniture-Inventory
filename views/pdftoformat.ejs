@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ISTA FURNITURE INVENTORY</title>
+    <link rel="icon" href="/img/icon.png" type="image/x-icon">
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/alert.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</head>
+
+<body id="page-top" style="font-size: smaller;">
+    <h2 style="text-align: center; font-weight: bold;">ISTA FURNITURE INVENTORY</h2>
+    <div id="content">
+        <div class="container-fluid">
+            <div class="card-body">
+                <h1 class="h3 mb-6 text-gray-600" style="font-size: x-large; margin-bottom: 1rem;">Approved Records</h1>
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="90%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Invoice</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Company Name</th>
+                                <th>Date of Purchase</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Tax</th>
+                                <th>Total Cost</th>
+                                <th>Warranty</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%if (records !="" ) {%>
+                                <% records.forEach(function(record, index){ %>
+                                    <tr>
+                                        <td><%= record.inVoice%></td>
+                                        <td><%= record.productName%></td>
+                                        <td style="width: 200px;"><%= record.description%></td>
+                                        <td><%= record.company%></td>
+                                        <td><%= dop[index]%></td>
+                                        <td><%= record.quantity%></td>
+                                        <td style="width: 80px;">&#x20B9; <%= record.rate%></td>
+                                        <td><%= record.percentage%></td>
+                                        <td style="width: 80px;">&#x20B9; <%= record.cost%></td>
+                                        <td><%= warranty[index]%></td>
+                                    </tr>
+                                <%})%>
+                            <%}%>
+                        </tbody>
+                    </table>
+                    <div>
+                        <h3>Total Cost:  <%= total %></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

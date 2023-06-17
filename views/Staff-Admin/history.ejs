@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ISTA FURNITURE INVENTORY</title>
+    <link rel="icon" href="/img/icon.png" type="image/x-icon">
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/form.css">
+    <link rel="stylesheet" href="/css/alert.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</head>
+
+<style>
+    .center {
+        margin: auto;
+        width: 60%;
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .hideform {
+        display: none;
+    }
+</style>
+
+<body id="page-top">
+    <div id="wrapper">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Staff-Admin/dashboard">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">STAFF ADMIN</div>
+            </a>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/dashboard">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                Interface
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/addrecords">
+                    <i class="fas fa-fw fa-plus-square"></i>
+                    <span>Add Records</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/unverifedrecords">
+                    <i class="fas fa-fw fa-check-double"></i>
+                    <span>Unverified Records</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/verifyrecords">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Approved Records</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/verifystaff">
+                    <i class="fas fa-fw fa-user-check"></i>
+                    <span>Staff Verification</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/approvedrecords">
+                    <i class="fas fa-fw fa fa-file-pdf-o"></i>
+                    <span>Generate PDF</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/Staff-Admin/godownRecords">
+                    <i class="fas fa-fw fa fa-file-pdf-o"></i>
+                    <span>Godown Records</span></a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+        </ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <ul class="navbar-nav ml-auto">
+                        <div class="topbar-divider d-none d-sm-block"></div>
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+                                    <%= "" +user %>
+                                </span>
+                                <img class="img-profile rounded-circle" src="/img/undraw_profile.svg">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/Staff-Admin/profile">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Product Detail</h1>
+                        <%if(msg !='' ){%>
+                            <div class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                                <div class="alert alert_info">
+                                    <button aria-hidden="true" data-dismiss="alert" class="btn btn-primary"
+                                        type="button" style="border: none;background: none;">&times;</button>
+                                    <strong>
+                                        <%= msg %>
+                                    </strong>
+                                </div>
+                            </div>
+                            <%}%>
+                    </div>
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <!-- <div class="col-sm-8 mb-3"> -->
+                                <div class="card-body">
+                                    <%if (record!="" ) {%>
+                                        <% record.forEach(function(record, index){ %>
+                                            <div class="row mb-4">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Product Name</p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="text-muted mb-0">
+                                                        <%= record.productName %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Number Received</p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="text-muted mb-0">
+                                                        <%= record.quantity %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Invoice Number</p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="text-muted mb-0">
+                                                        <%= record.inVoice %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-4">
+                                                <div class="col-sm-4">
+                                                    <p class="mb-0">Total Cost</p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p class="text-muted mb-0">&#8377; <%= record.cost %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        <%})%>
+                                    <%}%>
+                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                                </div>
+                                <!-- insert table -->
+                                <!-- </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 mb-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#history" style="margin-left: 27rem;">
+                                <i class="fa fa-plus" aria-hidden="true"></i> 
+                                Add
+                            </button>
+                        </div>
+                        <div class="col-sm-6 mb-3">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#godown" >
+                                <i class="fa fa-trash" aria-hidden="true"></i> 
+                                Move to Godown
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <%if (his!="" ){%>
+                        <%for(var i=0; i<(his[0]["History"].length); i++){%>
+                            <%if(his[0]["History"][i]["Inuse"]=="Yes"){%>
+                                <div class="container-fluid">
+                                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                        <h1 class="h3 mb-0 text-gray-800">Currently Inuse</h1>
+                                    </div>
+                                    <div class="card shadow">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Faculty Name</th>
+                                                            <th scope="col">Floor</th>
+                                                            <th scope="col">Room No</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td scope="row">
+                                                                <%= his[0]["History"][i]["Faculty"]%>
+                                                            </td>
+                                                            <td>
+                                                                <%= his[0]["History"][i]["Floor"]%>
+                                                            </td>
+                                                            <td>
+                                                                <%= his[0]["History"][i]["RoomNo"]%>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <%}%>
+                        <%}%>
+                    <%}%>
+                    <br><br>
+                    <%if (his!="" ){%>
+                        <div class="container-fluid">
+                            <div
+                                class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <h1 class="h3 mb-0 text-gray-800">History</h1>
+                            </div>
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Faculty Name</th>
+                                                    <th scope="col">Floor</th>
+                                                    <th scope="col">Room No</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%for(var i=0; i<(his[0]["History"].length); i++){%>
+                                                    <%if(his[0]["History"][i]["Inuse"]=="No"){%>
+                                                        <tr>
+                                                            <td scope="row">
+                                                                <%=
+                                                                    his[0]["History"][i]["Faculty"]%>
+                                                            </td>
+                                                            <td>
+                                                                <%=
+                                                                    his[0]["History"][i]["Floor"]%>
+                                                            </td>
+                                                            <td>
+                                                                <%=
+                                                                    his[0]["History"][i]["RoomNo"]%>
+                                                            </td>
+                                                        </tr>
+                                                    <%}%>
+                                                <%}%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <%}%>
+                    <div class="modal fade" id="history" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title"><b>Add History</b></h3>
+                                    <button class="close" type="button"
+                                        data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <!-- <div class="modal-body">Are you sure to remove this record?</div> -->
+                                <div class="modal-body">
+                                    <form action="/Staff-Admin/addhistory"
+                                        method="post">
+                                        <div class="form-group">
+                                            <label class="control-label">Faculty
+                                                Name</label>
+                                            <select class="input-field form-control"
+                                                name="pname">
+                                                <%if(staff!=""){%>
+                                                    <% staff.forEach(function(s, index){
+                                                        %>
+                                                        <option
+                                                            value="<%= s.firstName%>">
+                                                            <%= s.firstName%>
+                                                        </option>
+                                                    <%})%>
+                                                <%}%>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput2"
+                                                class="control-label">Floor</label>
+                                            <input type="number" class="form-control"
+                                                name="floor" id="formGroupExampleInput2"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="formGroupExampleInput2"
+                                                class="control-label">Room No</label>
+                                            <input type="text" class="form-control"
+                                                name="room" id="formGroupExampleInput2"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label">Inuse</label>
+                                            <select class="input-field form-control"
+                                                name="inuse">
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group" hidden>
+                                            <label for="qid"
+                                                class="control-label">Q_id</label>
+                                            <input type="text" class="form-control"
+                                                value="<%= Qid %>" name="qid" id="qid"
+                                                required>
+                                        </div>
+                                        <div class="mt-2 text-center">
+                                            <button type="submit" id="success"
+                                                class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="godown" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Move to Godown?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Are you sure to move this product to Godown?</div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                    <form action="/Staff-Admin/godown" method="post">
+                                        <input type="hidden" value="<%= Qid %>" name="gRecord">
+                                        <button class="btn btn-primary" type="submit">Yes</button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; ISTA 2023</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <form action="/Staff-Admin/logout" method="post">
+                        <button class="btn btn-primary" type="submit">Logout</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/js/sb-admin-2.min.js"></script>
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+</body>
+
+</html>
