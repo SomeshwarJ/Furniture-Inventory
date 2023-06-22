@@ -274,6 +274,13 @@
                                             <tr>
                                                 <td scope="row"><%= i+1%></td>
                                                 <td><%= record["Q_id"][i]%></td>
+                                                <% if (gRec==''){ %>
+                                                    <td>
+                                                        <a href="/Staff-Admin/history/<%= record["Q_id"][i] %>">
+                                                            <button class="btn btn-primary">View</button>
+                                                        </a>
+                                                    </td>
+                                                <% } %>  
                                                 <% if (gRec!=''){ %>
                                                     <% for (let j=0; j<gRec.length; j++){%>
                                                         <% if (gRec[j]["Q_id"]==record["Q_id"][i]){ %>
